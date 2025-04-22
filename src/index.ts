@@ -1,4 +1,5 @@
 import express, { Request, Response, Router } from 'express';
+import cors from 'cors';
 import * as dotenv from "dotenv";
 import aiRouter from './routes/aiRoutes';
 import connectDB from './utils/connectDB';
@@ -12,6 +13,11 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 connectDB();
+
+// Middleware
+app.use(cors({
+    origin: '*', // or specify a particular domain for security
+}));
 
 app.get('/', (req, res) => {
     res.send('Hello World');  

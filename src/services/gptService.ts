@@ -14,7 +14,7 @@ export const askGPT = async (prompt: string) => {
     // Send a request to the Azure GPT model with the provided prompt
     const response = await client.chat.completions.create({
       messages: [
-        { role: "system", content: "You are a helpful assistant for managing and maintaining hospital facilities. You provide detailed information and assist with maintenance requests, scheduling, and equipment management." },
+        { role: "system", content: "You are a helpful assistant for managing and maintaining hospital facilities. You provide detailed information and assist with troubleshooting, maintenance requests." },
         { role: "user", content: prompt }  // The user prompt you want to send
       ],
       model: modelName  // Use the Azure model name here

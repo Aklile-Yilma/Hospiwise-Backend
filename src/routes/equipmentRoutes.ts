@@ -1,22 +1,31 @@
-import express from 'express';
+// Instead of:
 import * as equipmentController from '../controllers/equipment';
 
+// Use:
+import { 
+  getAllEquipment,
+  createEquipment, 
+  updateEquipment,
+  deleteEquipment,
+  reportIssue 
+} from '../controllers/equipment';
+import express from 'express';
 
 const equipmentRouter = express.Router();
 
 // GET all equipment
-equipmentRouter.get('/', equipmentController.getAllEquipment);
+equipmentRouter.get('/', getAllEquipment);
 
 // POST a new piece of equipment
-equipmentRouter.post('/', equipmentController.createEquipment);
+equipmentRouter.post('/', createEquipment);
 
 // PUT (update) an equipment by ID
-equipmentRouter.put('/:id', equipmentController.updateEquipment);
+equipmentRouter.put('/:id', updateEquipment);
 
 // DELETE an equipment by ID
-equipmentRouter.delete('/:id', equipmentController.deleteEquipment);
+equipmentRouter.delete('/:id', deleteEquipment);
 
 // POST maintenance report for equipment
-equipmentRouter.post('/:id/report-issue', equipmentController.reportIssue);
+equipmentRouter.post('/:id/report-issue', reportIssue);
 
 export default equipmentRouter;

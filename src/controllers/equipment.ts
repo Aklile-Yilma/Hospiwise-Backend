@@ -32,7 +32,7 @@ const getEquipmentByType = async (req: Request, res: Response) => {
 };
 
 // GET equipment by ID
-const getEquipmentById = async (req: Request, res: Response): Promise<any> => {
+const getEquipmentById = async (req: Request, res: Response) => {
   try {
     const equipment = await Equipment.findById(req.params.id);
     if (!equipment) {
@@ -63,15 +63,17 @@ const createEquipment = async (req: Request, res: Response) => {
 
     // Validate required fields
     if (!type || !serialNo || !location || !status || !installationDate || !manufacturer || !modelType) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         error: 'Missing required fields: type, serialNo, location, status, installationDate, manufacturer, modelType' 
       });
+      return;
     }
 
     // Check if serialNo already exists
     const existingEquipment = await Equipment.findOne({ serialNo });
     if (existingEquipment) {
-      return res.status(400).json({ error: 'Equipment with this serial number already exists' });
+       res.status(400).json({ error: 'Equipment with this serial number already exists' });
+       return;
     }
 
     const newEquipment = new Equipment({ 
@@ -97,7 +99,7 @@ const createEquipment = async (req: Request, res: Response) => {
 };
 
 // PUT (update) an equipment by ID
-const updateEquipment = async (req: Request, res: Response): Promise<any> => {
+const updateEquipment = async (req: Request, res: Response) => {
   try {
     const { 
       type,
@@ -120,7 +122,8 @@ const updateEquipment = async (req: Request, res: Response): Promise<any> => {
         _id: { $ne: req.params.id } 
       });
       if (existingEquipment) {
-        return res.status(400).json({ error: 'Equipment with this serial number already exists' });
+         res.status(400).json({ error: 'Equipment with this serial number already exists' });
+         return
       }
     }
 
@@ -146,7 +149,8 @@ const updateEquipment = async (req: Request, res: Response): Promise<any> => {
     );
 
     if (!updatedEquipment) {
-      return res.status(404).json({ message: 'Equipment not found' });
+       res.status(404).json({ message: 'Equipment not found' });
+       return;
     }
 
     res.json(updatedEquipment);
@@ -157,11 +161,12 @@ const updateEquipment = async (req: Request, res: Response): Promise<any> => {
 };
 
 // DELETE an equipment by ID
-const deleteEquipment = async (req: Request, res: Response): Promise<any> => {
+const deleteEquipment = async (req: Request, res: Response) => {
   try {
     const deletedEquipment = await Equipment.findByIdAndDelete(req.params.id);
     if (!deletedEquipment) {
-      return res.status(404).json({ message: 'Equipment not found' });
+      res.status(404).json({ message: 'Equipment not found' });
+      return
     }
     
     // Also delete related maintenance history
@@ -180,7 +185,8 @@ const reportIssue = async (req: Request, res: Response) => {
     const { issue, technician, description } = req.body;
     
     if (!issue || !technician) {
-      return res.status(400).json({ error: 'Issue and technician are required fields' });
+      res.status(400).json({ error: 'Issue and technician are required fields' });
+      return
     }
 
     const maintenanceHistory = new MaintenanceHistory({
@@ -199,7 +205,8 @@ const reportIssue = async (req: Request, res: Response) => {
     }, { new: true });
 
     if (!updatedEquipment) {
-      return res.status(404).json({ message: 'Equipment not found' });
+      res.status(404).json({ message: 'Equipment not found' });
+      return
     }
 
     await maintenanceHistory.save();
@@ -214,7 +221,7 @@ const reportIssue = async (req: Request, res: Response) => {
 };
 
 // PATCH update operating hours
-const updateOperatingHours = async (req: Request, res: Response): Promise<any> => {
+const updateOperatingHours = async (req: Request, res: Response) => {
   try {
     const { hours } = req.body;
     
@@ -241,11 +248,8 @@ const updateOperatingHours = async (req: Request, res: Response): Promise<any> =
 
 export {
   getAllEquipment,
-  getEquipmentByType,
-  getEquipmentById,
   createEquipment,
   updateEquipment,
   deleteEquipment,
   reportIssue,
-  updateOperatingHours,
 };

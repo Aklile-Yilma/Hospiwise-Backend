@@ -1,21 +1,25 @@
 import express from 'express';
-import maintenanceHistoryController from '../controllers/maintenanceHistoryController';
+import maintenanceController from '../controllers/maintenanceHistoryController';
 
-const MaintenanceHistoryRouter = express.Router();
+const router = express.Router();
 
-// GET all maintenance history
-MaintenanceHistoryRouter.get('/', maintenanceHistoryController.getAllMaintenanceHistory);
+// GET routes
+router.get('/', maintenanceController.getAllMaintenanceHistory);
+router.get('/statistics', maintenanceController.getMaintenanceStatistics);
+router.get('/issues/all', maintenanceController.getAllIssueEnums);
+router.get('/issues/type/:equipmentType', maintenanceController.getValidIssuesForEquipmentType);
+router.get('/issues/equipment/:equipmentId', maintenanceController.getValidIssuesForEquipment);
+router.get('/equipment/:equipmentId', maintenanceController.getMaintenanceHistoryByEquipment);
+router.get('/:id', maintenanceController.getMaintenanceHistoryById);
 
-// GET maintenance history by equipment ID
-MaintenanceHistoryRouter.get('/:equipmentId', maintenanceHistoryController.getMaintenanceHistoryByEquipment);
+// POST routes
+router.post('/', maintenanceController.createMaintenanceHistory);
+router.post('/equipment/:equipmentId', maintenanceController.createMaintenanceHistory);
 
-// POST a new maintenance history record
-MaintenanceHistoryRouter.post('/:equipmentId', maintenanceHistoryController.createMaintenanceHistory);
+// PUT routes
+router.put('/:id', maintenanceController.updateMaintenanceHistory);
 
-// PUT (update) a maintenance history record by ID
-MaintenanceHistoryRouter.put('/:id', maintenanceHistoryController.updateMaintenanceHistory);
+// DELETE routes
+router.delete('/:id', maintenanceController.deleteMaintenanceHistory);
 
-// DELETE a maintenance history record by ID
-MaintenanceHistoryRouter.delete('/:id', maintenanceHistoryController.deleteMaintenanceHistory);
-
-export default MaintenanceHistoryRouter;
+export default router;

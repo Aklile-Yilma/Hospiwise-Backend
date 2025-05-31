@@ -76,7 +76,33 @@ const createEquipment = async (req: Request, res: Response) => {
        return;
     }
 
+    const randomDigits = Math.floor(100000 + Math.random() * 900000);
+    
+    // Create type prefix (first 3 letters of type)
+    let typePrefix = '';
+    switch(type) {
+      case 'Defibrillator':
+        typePrefix = 'DEF';
+        break;
+      case 'Infusion pump':
+        typePrefix = 'INF';
+        break;
+      case 'Patient monitor':
+        typePrefix = 'PAT';
+        break;
+      case 'Suction machine':
+        typePrefix = 'SUC';
+        break;
+      default:
+        typePrefix = 'EQP';
+    }
+    
+    const id = `${typePrefix}_${randomDigits}`;
+    const name = id; // Set name exactly same as id
+
     const newEquipment = new Equipment({ 
+      id,
+      name,
       type,
       serialNo,
       location,

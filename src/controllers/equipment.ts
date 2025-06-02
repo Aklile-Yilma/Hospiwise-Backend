@@ -39,6 +39,11 @@ const getEquipmentById = async (req: Request, res: Response) => {
       res.status(404).json({ message: 'Equipment not found' });
       return
     }
+    const maintenanceHistory = await MaintenanceHistory.find({ equipment: equipment._id }).sort({ maintenanceDate: -1 });
+    res.json({
+      ...equipment.toObject(),
+      maintenanceHistory,
+    });
     res.json(equipment);
   } catch (err: any) {
     res.status(500).json({ error: err.message });

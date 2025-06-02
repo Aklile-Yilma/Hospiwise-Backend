@@ -36,7 +36,8 @@ const getEquipmentById = async (req: Request, res: Response) => {
   try {
     const equipment = await Equipment.findById(req.params.id);
     if (!equipment) {
-      return res.status(404).json({ message: 'Equipment not found' });
+      res.status(404).json({ message: 'Equipment not found' });
+      return
     }
     res.json(equipment);
   } catch (err: any) {
@@ -278,4 +279,5 @@ export {
   updateEquipment,
   deleteEquipment,
   reportIssue,
+  getEquipmentById
 };

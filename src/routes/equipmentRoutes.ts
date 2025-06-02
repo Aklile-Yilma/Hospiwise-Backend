@@ -7,7 +7,8 @@ import {
   createEquipment, 
   updateEquipment,
   deleteEquipment,
-  reportIssue 
+  reportIssue,
+  getEquipmentById
 } from '../controllers/equipment';
 import express from 'express';
 
@@ -15,6 +16,9 @@ const equipmentRouter = express.Router();
 
 // GET all equipment
 equipmentRouter.get('/', getAllEquipment);
+
+// Get one equipment
+equipmentRouter.get('/:id', getEquipmentById);
 
 // POST a new piece of equipment
 equipmentRouter.post('/', createEquipment);

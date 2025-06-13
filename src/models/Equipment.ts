@@ -10,7 +10,7 @@ const equipmentSchema = new mongoose.Schema({
   type: { 
     type: String, 
     required: true, 
-    enum: ['Defibrillator', 'Infusion pump', 'Patient monitor', 'Suction machine'] 
+    enum: ['Defibrillator', 'Infusion pump', 'Patient monitor', 'Suction machine', 'ULTRASOUND', 'CTScanner', 'MRI', 'Anesthesia Machine', 'XRAY'] 
   },
   name: { 
     type: String, 
@@ -81,6 +81,7 @@ equipmentSchema.pre('save', function(next) {
     const randomDigits = Math.floor(100000 + Math.random() * 900000);
     
     // Create type prefix (first 3 letters of type)
+    // Create type prefix (first 3 letters of type)
     let typePrefix = '';
     switch(this.type) {
       case 'Defibrillator':
@@ -94,6 +95,21 @@ equipmentSchema.pre('save', function(next) {
         break;
       case 'Suction machine':
         typePrefix = 'SUC';
+        break;
+      case 'ULTRASOUND':
+        typePrefix = 'ULT';
+        break;
+      case 'CTScanner':
+        typePrefix = 'CTS';
+        break;
+      case 'MRI':
+        typePrefix = 'MRI';
+        break;
+      case 'Anesthesia Machine':
+        typePrefix = 'ANE';
+        break;
+      case 'XRAY':
+        typePrefix = 'XRA';
         break;
       default:
         typePrefix = 'EQP';

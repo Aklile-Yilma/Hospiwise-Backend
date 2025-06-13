@@ -41,12 +41,76 @@ const suctionMachineIssues = [
   'Power Switch Malfunction'
 ];
 
+const ultrasoundIssues = [
+  'Probe Failure',
+  'Image Artifacts',
+  'Poor Image Quality',
+  'Calibration Drift',
+  'Software Crash',
+  'Power Supply Issue',
+  'Display Unit Failure',
+  'Transducer Malfunction'
+];
+
+const ctScannerIssues = [
+  'X-ray Tube Failure',
+  'Cooling System Failure',
+  'Gantry Malfunction',
+  'Detector Array Issue',
+  'Calibration Drift',
+  'Software Glitch',
+  'Radiation Dose Error',
+  'Power Supply Failure',
+  'Table Movement Error'
+];
+
+const mriIssues = [
+  'Magnet Quench',
+  'RF Shielding Failure',
+  'Cooling System Failure',
+  'Gradient Coil Issue',
+  'Helium Loss',
+  'Calibration Drift',
+  'Software Crash',
+  'Shimming Problems',
+  'Cryogenic System Failure'
+];
+
+const anesthesiaMachineIssues = [
+  'Gas Leak',
+  'Ventilator Failure',
+  'Flow Meter Malfunction',
+  'Vaporizer Issue',
+  'Sensor Malfunction',
+  'Calibration Error',
+  'Power Failure',
+  'Display Failure',
+  'Breathing Circuit Problem'
+];
+
+const xrayIssues = [
+  'X-ray Tube Failure',
+  'Image Noise',
+  'Poor Image Quality',
+  'Cooling System Issue',
+  'Detector Malfunction',
+  'Calibration Error',
+  'Power Supply Failure',
+  'Software Error',
+  'Collimator Problem'
+];
+
 // All issues combined for simple enum
 const allIssues = [
   ...defibrillatorIssues,
   ...infusionPumpIssues,
   ...patientMonitorIssues,
-  ...suctionMachineIssues
+  ...suctionMachineIssues,
+  ...ultrasoundIssues,
+  ...ctScannerIssues,
+  ...mriIssues,
+  ...anesthesiaMachineIssues,
+  ...xrayIssues
 ];
 
 // Simple maintenance history schema
@@ -106,9 +170,14 @@ const MaintenanceHistory = mongoose.model('MaintenanceHistory', maintenanceHisto
 // Export issue arrays for use in controller
 export const issueEnums = {
   'Defibrillator': defibrillatorIssues,
-  'Infusion Pump': infusionPumpIssues,
-  'Patient Monitor': patientMonitorIssues,
-  'Suction Machine': suctionMachineIssues
+  'Infusion pump': infusionPumpIssues,
+  'Patient monitor': patientMonitorIssues,
+  'Suction machine': suctionMachineIssues,
+  'ULTRASOUND': ultrasoundIssues,
+  'CTScanner': ctScannerIssues,
+  'MRI': mriIssues,
+  'Anesthesia Machine': anesthesiaMachineIssues,
+  'XRAY': xrayIssues
 };
 
 export default MaintenanceHistory;

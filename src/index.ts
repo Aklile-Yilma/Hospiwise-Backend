@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 import aiRouter from './routes/aiRoutes';
 import connectDB from './utils/connectDB';
 import equipmentRouter from './routes/equipmentRoutes';
+import failureReportRoutes from './routes/failureReportsRoutes';
 import MaintenanceHistoryRouter from './routes/maintenanceHistoryRouter';
 import { connectToMongoDB } from './db/mongodb';
 import { auth } from './utils/auth';
@@ -60,7 +61,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/ai', aiRouter);
 app.use('/api/equipment', equipmentRouter);
 app.use('/api/maintenance-history', MaintenanceHistoryRouter);
-
+app.use('/api/failure-reports', failureReportRoutes);
 
 
 app.use(function (err: any, req: Request, res: Response, next: any) {

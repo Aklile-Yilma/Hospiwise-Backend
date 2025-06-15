@@ -5,6 +5,7 @@ import aiRouter from './routes/aiRoutes';
 import connectDB from './utils/connectDB';
 import equipmentRouter from './routes/equipmentRoutes';
 import MaintenanceHistoryRouter from './routes/maintenanceHistoryRouter';
+import FailureReportRouter from './routes/failureReportsRoutes'
 
 dotenv.config();
 
@@ -30,6 +31,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/ai', aiRouter);
 app.use('/api/equipment', equipmentRouter);
 app.use('/api/maintenance-history', MaintenanceHistoryRouter);
+app.use('/api/failure-reports', FailureReportRouter);
+
 
 
 

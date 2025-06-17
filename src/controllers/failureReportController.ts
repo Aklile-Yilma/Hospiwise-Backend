@@ -3,6 +3,7 @@ import FailureReport from '../models/FailureReport';
 import Equipment from '../models/Equipment';
 import MaintenanceHistory from '../models/MaintainanceHistory';
 import { issueEnums } from '../models/MaintainanceHistory';
+import { v4 as uuidv4 } from 'uuid';
 
 // GET all failure reports
 const getAllFailureReports = async (req: Request, res: Response) => {
@@ -103,8 +104,10 @@ const createFailureReport = async (req: Request, res: Response): Promise<any> =>
       });
     }
 
+    const failureId = uuidv4();
     // Create failure report
     const failureReport = new FailureReport({
+      failureId: failureId,
       equipment: equipmentId,
       issue,
       description,
